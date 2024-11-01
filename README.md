@@ -8,12 +8,11 @@ Java Development Kit (JDK) 17 o superior.
 IntelliJ IDEA 2024 2.4
 Gradle
 
-##Instrucciones de instalación
+## Instrucciones de instalación
 Sigue estos pasos para configurar el proyecto en tu entorno local.
 
 1. Clonar el repositorio
 Clona el repositorio del proyecto desde GitHub a tu máquina local:
-
 git clone https://github.com/Arieeeeeeeeeel/ProyectoGM
 2. Importar el proyecto en IntelliJ 
 Abre IntelliJ .
