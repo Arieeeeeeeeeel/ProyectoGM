@@ -12,10 +12,8 @@ Sigue estos pasos para configurar el proyecto en tu entorno local.
 
 ### 1. Clonar el Repositorio
 Clona el repositorio del proyecto desde GitHub a tu máquina local:
-
-bash
-Copiar código
 git clone https://github.com/Arieeeeeeeeeel/ProyectoGM
+
 ### 2. Importar el Proyecto en IntelliJ
 Abre IntelliJ.
 En la pantalla de bienvenida, selecciona Open o Import Project (o File > Open desde el menú si ya tienes otro proyecto abierto).
