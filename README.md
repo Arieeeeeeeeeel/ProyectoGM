@@ -1,33 +1,27 @@
-# JuegoLluvia
+# Proyecto GM
+El proyecto toma el juego base de lluvia, en el cual el objetivo es recoger la mayor cantidad de gotas de lluvia buenas para obtener un mayor puntaje, y busca realizarle modificaciones aplicando encapsulamiento
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+## Requisitos previos
+Asegúrate de tener los siguientes programas y herramientas instalados en tu sistema:
 
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
+Java Development Kit (JDK) 17 o superior.
+IntelliJ IDEA 2024 2.4
+Gradle
 
-## Platforms
+##Instrucciones de instalación
+Sigue estos pasos para configurar el proyecto en tu entorno local.
 
-- `core`: Main module with the application logic shared by all platforms.
-- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
+1. Clonar el repositorio
+Clona el repositorio del proyecto desde GitHub a tu máquina local:
 
-## Gradle
+git clone https://github.com/Arieeeeeeeeeel/ProyectoGM
+2. Importar el proyecto en IntelliJ 
+Abre IntelliJ .
+En la pantalla de bienvenida, selecciona Open o Import Project (o File > Open desde el menú si ya tienes otro proyecto abierto).
+Navega hasta la carpeta del proyecto que deseas importar y selecciona el archivo o la carpeta del proyecto.
+Selecciona tipo de proyecto Gradle.
+Ejecutar el proyecto
+En el Explorador de Proyectos, expande el proyecto hasta encontrar lwjgl3, luego expande por src->main->java->io.github.some_example_name.lwjgl3 y luego en Lwjgl3Launcher en la linea 8 tienes un botón de play para ejecutar el juego.
 
-This project uses [Gradle](https://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
 
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `test`: runs unit tests (if any).
-
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+¡A disfrutar! 
