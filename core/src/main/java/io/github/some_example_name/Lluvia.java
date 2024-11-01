@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-
 import gotas.Gota;
 import gotas.GotaBuena;
 import gotas.GotaMala;
@@ -20,14 +19,14 @@ public class Lluvia {
     private Texture gotaMala;
     private Sound dropSound;
     private Music rainMusic;
-	   
+
     public Lluvia(Texture gotaBuena, Texture gotaMala, Sound dropSound, Music rainMusic) {
         this.gotaBuena = gotaBuena;
         this.gotaMala = gotaMala;
         this.dropSound = dropSound;
         this.rainMusic = rainMusic;
     }
-	
+
     public void crear() {
         gotas = new Array<>();
         crearGotaDeLluvia();
@@ -36,12 +35,12 @@ public class Lluvia {
         rainMusic.setLooping(true);
         rainMusic.play();
     }
-	
+
     private void crearGotaDeLluvia() {
         float x = MathUtils.random(0, 800 - 64);
         float y = 480;
         float velocidad = 300 * Gdx.graphics.getDeltaTime();
-        
+
         // Determinamos el tipo de gota aleatoriamente
         Gota nuevaGota;
         if (MathUtils.random(1, 10) < 5) { // 50% de probabilidad
@@ -52,13 +51,13 @@ public class Lluvia {
         gotas.add(nuevaGota);
         lastDropTime = TimeUtils.nanoTime();
     }
-	
-    public boolean actualizarMovimiento(Tarro tarro) { 
+
+    public boolean actualizarMovimiento(Tarro tarro) {
         // Generar nuevas gotas
         if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
             crearGotaDeLluvia();
         }
-	  
+
         // Revisar el movimiento de cada gota y si colisiona con el tarro
         for (int i = 0; i < gotas.size; i++) {
             Gota gota = gotas.get(i);
@@ -67,7 +66,9 @@ public class Lluvia {
             if (gota.y < 0) { // La gota cae al suelo
                 gotas.removeIndex(i);
             } else if (gota.getArea().overlaps(tarro.getArea())) { // La gota choca con el tarro
-                gota.efecto(tarro); // Aplica el efecto en el tarro (suma puntos o reduce vida)
+                if (gota instanceof Recolectable) { // Verificar si es Recolectable
+                    ((Recolectable) gota).efecto(tarro); // Aplicar efecto en el tarro
+                }
                 dropSound.play();
                 gotas.removeIndex(i);
 
@@ -79,22 +80,22 @@ public class Lluvia {
         }
         return true;
     }
-   
-    public void actualizarDibujoLluvia(SpriteBatch batch) { 
+
+    public void actualizarDibujoLluvia(SpriteBatch batch) {
         for (Gota gota : gotas) {
             gota.dibujar(batch);
         }
     }
-   
+
     public void destruir() {
         dropSound.dispose();
         rainMusic.dispose();
     }
-   
+
     public void pausar() {
         rainMusic.stop();
     }
-   
+
     public void continuar() {
         rainMusic.play();
     }
