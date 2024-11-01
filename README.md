@@ -1,5 +1,5 @@
 # Proyecto GM
-El proyecto toma el juego base de lluvia, en el cual el objetivo es recoger la mayor cantidad de gotas de lluvia buenas para obtener un mayor puntaje, y busca realizarle modificaciones aplicando encapsulamiento.
+El proyecto toma el juego base de lluvia, pero lo transforma a una perspectiva de Minecraft.
 
 ## Requisitos Previos
 Asegúrate de tener los siguientes programas y herramientas instalados en tu sistema:
