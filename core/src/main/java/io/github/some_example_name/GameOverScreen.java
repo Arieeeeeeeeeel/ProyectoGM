@@ -23,10 +23,10 @@ public class GameOverScreen implements Screen {
         this.font = game.getFont();
 
         // Cargar la textura del fondo
-        fondo = new Texture(Gdx.files.internal("gameover_background.png")); // Asegúrate de que "gameover_background.png" esté en assets
+        fondo = new Texture(Gdx.files.internal("gameover_background.png")); //
 
         // Cargar el sonido de Game Over
-        gameOverSound = Gdx.audio.newSound(Gdx.files.internal("gameover_sound.wav")); // Asegúrate de que "gameover_sound.wav" esté en assets
+        gameOverSound = Gdx.audio.newSound(Gdx.files.internal("gameover_sound.wav"));
 
         // Configuración de la cámara
         camera = new OrthographicCamera();
@@ -47,7 +47,7 @@ public class GameOverScreen implements Screen {
         // Dibujar textos
         font.draw(batch, "PERDISTE", 100, 200);
         font.draw(batch, "Toca en cualquier lado para reiniciar.", 100, 100);
-        
+
         batch.end();
 
         // Reiniciar el juego si se toca la pantalla

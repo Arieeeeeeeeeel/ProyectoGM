@@ -14,31 +14,31 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class GameScreen implements Screen {
     final GameLluviaMenu game;
     private OrthographicCamera camera;
-    private SpriteBatch batch;	   
+    private SpriteBatch batch;
     private BitmapFont font;
     private Tarro tarro;
     private Lluvia lluvia;
-    private Texture fondo; // Añadimos la textura para el fondo
-	   
+    private Texture fondo;
+
     public GameScreen(final GameLluviaMenu game) {
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
 
         // Cargar la textura del fondo
-        fondo = new Texture(Gdx.files.internal("background.png")); // Asegúrate de que "background.png" esté en la carpeta assets
-		
+        fondo = new Texture(Gdx.files.internal("background.png"));
+
         // Cargar el resto de las texturas y sonidos
         Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
         tarro = new Tarro(new Texture(Gdx.files.internal("bucket.png")), hurtSound);
-         
+
         Texture gota = new Texture(Gdx.files.internal("drop.png"));
         Texture gotaMala = new Texture(Gdx.files.internal("dropBad.png"));
-		
+
         Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
         Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
         lluvia = new Lluvia(gota, gotaMala, dropSound, rainMusic);
-	      
+
         // Configuración de la cámara
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -54,7 +54,7 @@ public class GameScreen implements Screen {
         // Detecta si el jugador presiona la tecla ESC para pausar el juego
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             pause();
-            return; // Evitar que continúe el renderizado cuando se pausa
+            return;
         }
 
         // Limpiar la pantalla con un color azul oscuro
@@ -66,9 +66,7 @@ public class GameScreen implements Screen {
 
         // Comenzar a dibujar
         batch.begin();
-		
-        // Dibujar el fondo (esto debe ir primero para que el fondo quede atrás de los demás elementos)
-        batch.draw(fondo, 0, 0, 800, 480); // Ajusta el tamaño si tu ventana tiene otras dimensiones
+        batch.draw(fondo, 0, 0, 800, 480);
 
         // Dibujar textos
         font.draw(batch, "Diamantes totales: " + tarro.getPuntos(), 5, 475);
@@ -78,7 +76,7 @@ public class GameScreen implements Screen {
         if (!tarro.estaHerido()) {
             // Movimiento del tarro desde teclado
             tarro.actualizarMovimiento();
-	        
+
             // Caída de la lluvia
             if (!lluvia.actualizarMovimiento(tarro)) {
                 if (game.getHigherScore() < tarro.getPuntos())
@@ -87,7 +85,7 @@ public class GameScreen implements Screen {
                 dispose();
             }
         }
-		
+
         // Dibujar el tarro y la lluvia
         tarro.dibujar(batch);
         lluvia.actualizarDibujoLluvia(batch);
@@ -113,7 +111,7 @@ public class GameScreen implements Screen {
     @Override
     public void pause() {
         lluvia.pausar();
-        game.setScreen(new PausaScreen(game, this)); 
+        game.setScreen(new PausaScreen(game, this));
     }
 
     @Override
@@ -123,7 +121,7 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         // Liberar recursos de las texturas y sonidos
-        fondo.dispose(); // Liberar la textura del fondo
+        fondo.dispose();
         tarro.destruir();
         lluvia.destruir();
     }

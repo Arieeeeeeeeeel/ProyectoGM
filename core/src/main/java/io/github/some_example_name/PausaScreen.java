@@ -13,7 +13,7 @@ public class PausaScreen implements Screen {
 
     private final GameLluviaMenu game;
     private GameScreen juego;
-    private SpriteBatch batch;	   
+    private SpriteBatch batch;
     private BitmapFont font;
     private OrthographicCamera camera;
     private Texture fondo; // Fondo para la pantalla de pausa
@@ -26,10 +26,10 @@ public class PausaScreen implements Screen {
         this.font = game.getFont();
 
         // Cargar la textura del fondo
-        fondo = new Texture(Gdx.files.internal("brb.png")); // Asegúrate de que "pause_background.png" esté en assets
+        fondo = new Texture(Gdx.files.internal("brb.png"));
 
         // Cargar el sonido de pausa
-        pauseSound = Gdx.audio.newSound(Gdx.files.internal("pause_sound.wav")); // Asegúrate de que "pause_sound.wav" esté en assets
+        pauseSound = Gdx.audio.newSound(Gdx.files.internal("pause_sound.wav"));
 
         // Configuración de la cámara
         camera = new OrthographicCamera();
@@ -48,7 +48,7 @@ public class PausaScreen implements Screen {
         batch.begin();
 
         // Dibujar el fondo
-        batch.draw(fondo, 0, 0, 800, 480); // Ajusta el tamaño según sea necesario para que ocupe toda la pantalla
+        batch.draw(fondo, 0, 0, 800, 480);
 
         // Dibujar textos
         font.draw(batch, "Juego en Pausa ", 100, 150);

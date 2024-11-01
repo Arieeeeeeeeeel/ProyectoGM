@@ -25,7 +25,7 @@ public class Steve {
         sonidoHerido = ss;
     }
 
-    public static Steve getSteve() { // Cambiado el nombre a getSteve para mayor claridad
+    public static Steve getSteve() {
         if (instance == null) {
             instance = new Steve(new Texture(Gdx.files.internal("bucket.png")), Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")));
         }
