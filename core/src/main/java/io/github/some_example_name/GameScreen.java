@@ -19,11 +19,13 @@ public class GameScreen implements Screen {
     private Tarro tarro;
     private Lluvia lluvia;
     private Texture fondo;
+    private static float anchoCam;
 
     public GameScreen(final GameLluviaMenu game) {
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
+        anchoCam = game.getCam().viewportWidth;
 
         // Cargar la textura del fondo
         fondo = new Texture(Gdx.files.internal("background.png"));
@@ -47,6 +49,10 @@ public class GameScreen implements Screen {
         // Creación del tarro y la lluvia
         tarro.crear();
         lluvia.crear();
+    }
+
+    public static float getAnchoCam() {
+        return anchoCam;
     }
 
     @Override

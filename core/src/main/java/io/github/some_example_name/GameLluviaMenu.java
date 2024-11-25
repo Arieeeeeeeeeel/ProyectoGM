@@ -1,6 +1,7 @@
 package io.github.some_example_name;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -9,10 +10,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 		private SpriteBatch batch;
 		private BitmapFont font;
 		private int higherScore;
+        private OrthographicCamera camera;
 
 		public void create() {
 			batch = new SpriteBatch();
 			font = new BitmapFont();
+            camera = new OrthographicCamera();
+            camera.setToOrtho(false, 800, 480);
 			this.setScreen(new MainMenuScreen(this));
 		}
 
@@ -40,6 +44,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 		public void setHigherScore(int higherScore) {
 			this.higherScore = higherScore;
 		}
+
+        public OrthographicCamera getCam() {
+            return camera;
+        }
 
 
 	}
