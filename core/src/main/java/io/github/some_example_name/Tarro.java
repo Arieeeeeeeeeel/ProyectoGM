@@ -56,7 +56,7 @@ public class Tarro {
 		bucket.height = 64;
 	}
 
-	public void dañar() {
+	public void dañar(int cantidad) {
 		vidas--;
 		herido = true;
 		tiempoHerido = tiempoHeridoMax;

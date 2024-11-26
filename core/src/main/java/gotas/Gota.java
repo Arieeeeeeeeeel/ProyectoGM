@@ -3,7 +3,7 @@ package gotas;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-
+import movimientosGotas.MovimientoGota;
 import io.github.some_example_name.Item;
 import io.github.some_example_name.Tarro;
 
@@ -12,12 +12,14 @@ public abstract class Gota implements Item {
     protected float x;
     public float y;
     protected float velocidad;
+    protected MovimientoGota movimiento;
 
-    public Gota(Texture textura, float x, float y, float velocidad) {
+    public Gota(Texture textura, float x, float y, float velocidad, MovimientoGota movimiento) {
         this.textura = textura;
         this.x = x;
         this.y = y;
         this.velocidad = velocidad;
+        this.movimiento = movimiento;
     }
 
     // Método abstracto que será implementado por las subclases

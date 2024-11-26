@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import movimientosGotas.CaidaRecta;
+import movimientosGotas.MovimientoGota;
 import flechaStrategy.Flecha;
 import gotas.Gota;
 import gotas.GotaBuena;
@@ -22,19 +24,23 @@ public class Lluvia {
     private Sound dropSound;
     private Music rainMusic;
     private GameConfigurationSingleton gameConfig = GameConfigurationSingleton.getInstance();
+    private MovimientoGota movimiento;
 
     public Lluvia(Texture gotaBuena, Texture gotaMala, Sound dropSound, Music rainMusic) {
         this.gotaBuena = gotaBuena;
         this.gotaMala = gotaMala;
         this.dropSound = dropSound;
         this.rainMusic = rainMusic;
+
+
+        this.movimiento = new CaidaRecta();
     }
 
     public void crear() {
         gotas = new Array<>();
         crearGotaDeLluvia();
 
-        // Iniciar la música de fondo en bucle
+
         rainMusic.setLooping(true);
         rainMusic.play();
     }
@@ -44,40 +50,35 @@ public class Lluvia {
         float y = gameConfig.height;
         float velocidad = 300 * Gdx.graphics.getDeltaTime();
 
-        // Determinamos el tipo de gota aleatoriamente
+
         Gota nuevaGota;
         if (MathUtils.random(1, 10) < 5) { // 50% de probabilidad
-            nuevaGota = new GotaMala(gotaMala, x, y, velocidad);
+            nuevaGota = new GotaMala(gotaMala, x, y, velocidad, movimiento);
         } else {
-            nuevaGota = new GotaBuena(gotaBuena, x, y, velocidad);
+            nuevaGota = new GotaBuena(gotaBuena, x, y, velocidad, movimiento);
         }
         gotas.add(nuevaGota);
         lastDropTime = TimeUtils.nanoTime();
     }
 
     public boolean actualizarMovimiento(Tarro tarro) {
-        // Generar nuevas gotas
         if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
             crearGotaDeLluvia();
         }
 
-        // Revisar el movimiento de cada gota y si colisiona con el tarro
         for (int i = 0; i < gotas.size; i++) {
             Gota gota = gotas.get(i);
             gota.caer();
 
-            if (gota.y < 0) { // La gota cae al suelo
+            if (gota.y < 0) {
                 gotas.removeIndex(i);
-            } else if (gota.getArea().overlaps(tarro.getArea())) { // La gota choca con el tarro
-                if (gota instanceof Gota) { // Verificar si es Item
-                    ((Gota) gota).efecto(tarro); // Aplicar efecto en el tarro
-                }
+            } else if (gota.getArea().overlaps(tarro.getArea())) {
+                gota.efecto(tarro);
                 dropSound.play();
                 gotas.removeIndex(i);
 
-                // Verificamos si el tarro se queda sin vidas
                 if (tarro.getVidas() <= 0) {
-                    return false; // Si no tiene vidas, game over
+                    return false;
                 }
             }
         }
