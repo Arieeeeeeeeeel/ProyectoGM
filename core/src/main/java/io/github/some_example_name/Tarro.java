@@ -56,7 +56,7 @@ public class Tarro {
 
 	public void crear() {
 		bucket = new Rectangle();
-		bucket.x = (gameConfig.width - 64) / 2;
+		bucket.x = (gameConfig.getWidth() - 64) / 2;
 		bucket.y = 20;
 		bucket.width = 64;
 		bucket.height = 64;
@@ -99,8 +99,8 @@ public class Tarro {
 		// que no se salga de los bordes izq y der
 		if (bucket.x < 0)
 			bucket.x = 0;
-		if (bucket.x > gameConfig.width - 64)
-			bucket.x = gameConfig.width - 64;
+		if (bucket.x > gameConfig.getWidth() - 64)
+			bucket.x = gameConfig.getWidth() - 64;
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 			disparar(disparoStrategy);
 		}

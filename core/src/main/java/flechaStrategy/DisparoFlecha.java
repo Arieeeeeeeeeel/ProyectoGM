@@ -37,7 +37,7 @@ public class DisparoFlecha implements DisparoStrategy {
     public void actualizarMovimiento(Lluvia lluvia) {
         for (Flecha flecha : flechas) {
             flecha.subir();
-            if (flecha.y >= gameConfig.height) {
+            if (flecha.y >= gameConfig.getHeight()) {
                 flechas.removeValue(flecha, true);
             } else if (lluvia.colisionaConFlecha(flecha)) {
                 flechas.removeValue(flecha, true);

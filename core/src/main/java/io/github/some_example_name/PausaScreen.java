@@ -34,7 +34,7 @@ public class PausaScreen implements Screen {
 
         // Configuración de la cámara
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, gameConfig.width, gameConfig.height);
+        camera.setToOrtho(false, gameConfig.getWidth(), gameConfig.getHeight());
     }
 
     @Override
@@ -49,7 +49,7 @@ public class PausaScreen implements Screen {
         batch.begin();
 
         // Dibujar el fondo
-        batch.draw(fondo, 0, 0, gameConfig.width, gameConfig.height);
+        batch.draw(fondo, 0, 0, gameConfig.getWidth(), gameConfig.getHeight());
 
         // Dibujar textos
         font.draw(batch, "Juego en Pausa ", 100, 150);

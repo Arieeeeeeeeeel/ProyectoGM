@@ -22,7 +22,7 @@ public class MainMenuScreen implements Screen {
         this.batch = game.getBatch();
         this.font = game.getFont();
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, gameConfig.width, gameConfig.height);
+        camera.setToOrtho(false, gameConfig.getWidth(), gameConfig.getHeight());
 
         // Cargar la textura del fondo
         backgroundTexture = new Texture(Gdx.files.internal("background_menu.png")); // Asegúrate de que el archivo esté en los assets
@@ -37,7 +37,7 @@ public class MainMenuScreen implements Screen {
 
         batch.begin();
         // Dibujar el fondo
-        batch.draw(backgroundTexture, 0, 0, gameConfig.width, gameConfig.height);
+        batch.draw(backgroundTexture, 0, 0, gameConfig.getWidth(), gameConfig.getHeight());
 
         // Dibujar textos
         font.getData().setScale(2, 2);

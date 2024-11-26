@@ -9,7 +9,7 @@ public class CaidaDiagonal extends MovimientoGota {
 
     @Override
     public void actualizarX(Gota gota) {
-        if (gota.getX() > (gameConfig.width-64) ||
+        if (gota.getX() > (gameConfig.getWidth()-64) ||
             gota.getX() < 0) {
             gota.setVelocidadX( gota.getVelocidadX() * -1 );
         }

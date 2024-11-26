@@ -31,7 +31,7 @@ public class GameOverScreen implements Screen {
 
         // Configuración de la cámara
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, gameConfig.width, gameConfig.height);
+        camera.setToOrtho(false, gameConfig.getWidth(), gameConfig.getHeight());
     }
 
     @Override
@@ -43,7 +43,7 @@ public class GameOverScreen implements Screen {
         batch.begin();
 
         // Dibujar el fondo
-        batch.draw(fondo, 0, 0, gameConfig.width, gameConfig.height); // Ajusta el tamaño según sea necesario
+        batch.draw(fondo, 0, 0, gameConfig.getWidth(), gameConfig.getHeight()); // Ajusta el tamaño según sea necesario
 
         // Dibujar textos
         font.draw(batch, "PERDISTE", 100, 200);

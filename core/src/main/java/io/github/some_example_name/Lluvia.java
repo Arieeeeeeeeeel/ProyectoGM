@@ -41,8 +41,8 @@ public class Lluvia {
     }
 
     private void crearGotaDeLluvia(int dificultad) {
-        float x = MathUtils.random(0, gameConfig.width - 64);
-        float y = gameConfig.height;
+        float x = MathUtils.random(0, gameConfig.getWidth() - 64);
+        float y = gameConfig.getHeight();
         float velocidad = 300 * Gdx.graphics.getDeltaTime();
 
         setFactory(dificultad);

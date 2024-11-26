@@ -46,7 +46,7 @@ public class GameScreen implements Screen {
 
         // Configuración de la cámara
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, gameConfig.width, gameConfig.height);
+        camera.setToOrtho(false, gameConfig.getWidth(), gameConfig.getHeight());
         batch = new SpriteBatch();
 
         // Creación del tarro y la lluvia
@@ -76,12 +76,12 @@ public class GameScreen implements Screen {
 
         // Comenzar a dibujar
         batch.begin();
-        batch.draw(fondo, 0, 0, gameConfig.width, gameConfig.height);
+        batch.draw(fondo, 0, 0, gameConfig.getWidth(), gameConfig.getHeight());
 
         // Dibujar textos
-        font.draw(batch, "Diamantes totales: " + tarro.getPuntos(), 5, gameConfig.height - 5);
-        font.draw(batch, "Vidas : " + tarro.getVidas(), camera.viewportWidth / 2, gameConfig.height - 5);
-        font.draw(batch, "HighScore : " + game.getHigherScore(), gameConfig.width - 200, gameConfig.height - 5);
+        font.draw(batch, "Diamantes totales: " + tarro.getPuntos(), 5, gameConfig.getHeight() - 5);
+        font.draw(batch, "Vidas : " + tarro.getVidas(), camera.viewportWidth / 2, gameConfig.getHeight() - 5);
+        font.draw(batch, "HighScore : " + game.getHigherScore(), gameConfig.getWidth() - 200, gameConfig.getHeight() - 5);
 
         if (!tarro.estaHerido()) {
             // Movimiento del tarro desde teclado

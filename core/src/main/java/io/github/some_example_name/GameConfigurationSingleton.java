@@ -2,11 +2,11 @@ package io.github.some_example_name;
 
 public final class GameConfigurationSingleton {
     private static GameConfigurationSingleton instance;
-    public int width;
-    public int height;
-    public int fps;
-    public boolean fullscreen;
-    public boolean vSync;
+    private int width;
+    private int height;
+    private int fps;
+    private boolean fullscreen;
+    private boolean vSync;
 
     private GameConfigurationSingleton() {
         this.width = 800;
@@ -21,5 +21,25 @@ public final class GameConfigurationSingleton {
             instance = new GameConfigurationSingleton();
         }
         return instance;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getFps() {
+        return fps;
+    }
+
+    public boolean isFullscreen() {
+        return fullscreen;
+    }
+
+    public boolean isvSync() {
+        return vSync;
     }
 }
