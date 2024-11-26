@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+
+import flechaStrategy.Flecha;
 import gotas.Gota;
 import gotas.GotaBuena;
 import gotas.GotaMala;
@@ -19,6 +21,7 @@ public class Lluvia {
     private Texture gotaMala;
     private Sound dropSound;
     private Music rainMusic;
+    private GameConfigurationSingleton gameConfig = GameConfigurationSingleton.getInstance();
 
     public Lluvia(Texture gotaBuena, Texture gotaMala, Sound dropSound, Music rainMusic) {
         this.gotaBuena = gotaBuena;
@@ -37,8 +40,8 @@ public class Lluvia {
     }
 
     private void crearGotaDeLluvia() {
-        float x = MathUtils.random(0, 800 - 64);
-        float y = 480;
+        float x = MathUtils.random(0, gameConfig.width - 64);
+        float y = gameConfig.height;
         float velocidad = 300 * Gdx.graphics.getDeltaTime();
 
         // Determinamos el tipo de gota aleatoriamente
@@ -66,8 +69,8 @@ public class Lluvia {
             if (gota.y < 0) { // La gota cae al suelo
                 gotas.removeIndex(i);
             } else if (gota.getArea().overlaps(tarro.getArea())) { // La gota choca con el tarro
-                if (gota instanceof Recolectable) { // Verificar si es Recolectable
-                    ((Recolectable) gota).efecto(tarro); // Aplicar efecto en el tarro
+                if (gota instanceof Gota) { // Verificar si es Item
+                    ((Gota) gota).efecto(tarro); // Aplicar efecto en el tarro
                 }
                 dropSound.play();
                 gotas.removeIndex(i);
@@ -79,6 +82,19 @@ public class Lluvia {
             }
         }
         return true;
+    }
+
+    public boolean colisionaConFlecha(Flecha flecha) {
+        for (int i = 0; i < gotas.size; i++) {
+            Gota gota = gotas.get(i);
+            if (gota.getArea().overlaps(flecha.getArea())) {
+                if (gota instanceof GotaMala) {
+                    gotas.removeIndex(i);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void actualizarDibujoLluvia(SpriteBatch batch) {

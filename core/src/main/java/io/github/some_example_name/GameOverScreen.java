@@ -16,6 +16,7 @@ public class GameOverScreen implements Screen {
     private OrthographicCamera camera;
     private Texture fondo; // Fondo de la pantalla de Game Over
     private Sound gameOverSound; // Efecto de sonido para Game Over
+    private GameConfigurationSingleton gameConfig = GameConfigurationSingleton.getInstance();
 
     public GameOverScreen(final GameLluviaMenu game) {
         this.game = game;
@@ -30,7 +31,7 @@ public class GameOverScreen implements Screen {
 
         // Configuración de la cámara
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, gameConfig.width, gameConfig.height);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class GameOverScreen implements Screen {
         batch.begin();
 
         // Dibujar el fondo
-        batch.draw(fondo, 0, 0, 800, 480); // Ajusta el tamaño según sea necesario
+        batch.draw(fondo, 0, 0, gameConfig.width, gameConfig.height); // Ajusta el tamaño según sea necesario
 
         // Dibujar textos
         font.draw(batch, "PERDISTE", 100, 200);

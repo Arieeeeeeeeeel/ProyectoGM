@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import flechaStrategy.*;
 
 public class GameScreen implements Screen {
     final GameLluviaMenu game;
@@ -20,6 +21,8 @@ public class GameScreen implements Screen {
     private Lluvia lluvia;
     private Texture fondo;
     private static float anchoCam;
+    private DisparoStrategy disparoStrategy;
+    private GameConfigurationSingleton gameConfig = GameConfigurationSingleton.getInstance();
 
     public GameScreen(final GameLluviaMenu game) {
         this.game = game;
@@ -43,12 +46,13 @@ public class GameScreen implements Screen {
 
         // Configuración de la cámara
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, gameConfig.width, gameConfig.height);
         batch = new SpriteBatch();
 
         // Creación del tarro y la lluvia
         tarro.crear();
         lluvia.crear();
+        disparoStrategy = new DisparoFlecha();
     }
 
     public static float getAnchoCam() {
@@ -72,16 +76,17 @@ public class GameScreen implements Screen {
 
         // Comenzar a dibujar
         batch.begin();
-        batch.draw(fondo, 0, 0, 800, 480);
+        batch.draw(fondo, 0, 0, gameConfig.width, gameConfig.height);
 
         // Dibujar textos
-        font.draw(batch, "Diamantes totales: " + tarro.getPuntos(), 5, 475);
-        font.draw(batch, "Vidas : " + tarro.getVidas(), 670, 475);
-        font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth / 2 - 50, 475);
+        font.draw(batch, "Diamantes totales: " + tarro.getPuntos(), 5, gameConfig.height - 5);
+        font.draw(batch, "Vidas : " + tarro.getVidas(), camera.viewportWidth / 2, gameConfig.height - 5);
+        font.draw(batch, "HighScore : " + game.getHigherScore(), gameConfig.width - 200, gameConfig.height - 5);
 
         if (!tarro.estaHerido()) {
             // Movimiento del tarro desde teclado
-            tarro.actualizarMovimiento();
+            tarro.actualizarMovimiento(disparoStrategy);
+            disparoStrategy.actualizarMovimiento(lluvia);
 
             // Caída de la lluvia
             if (!lluvia.actualizarMovimiento(tarro)) {
@@ -90,9 +95,11 @@ public class GameScreen implements Screen {
                 game.setScreen(new GameOverScreen(game));
                 dispose();
             }
+
         }
 
-        // Dibujar el tarro y la lluvia
+        // Dibujar el tarro, la lluvia y las flechas
+        disparoStrategy.actualizarDibujo(batch);
         tarro.dibujar(batch);
         lluvia.actualizarDibujoLluvia(batch);
 
@@ -130,5 +137,6 @@ public class GameScreen implements Screen {
         fondo.dispose();
         tarro.destruir();
         lluvia.destruir();
+        disparoStrategy.destruir();
     }
 }

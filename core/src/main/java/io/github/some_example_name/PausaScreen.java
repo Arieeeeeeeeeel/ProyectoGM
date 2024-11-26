@@ -18,6 +18,7 @@ public class PausaScreen implements Screen {
     private OrthographicCamera camera;
     private Texture fondo; // Fondo para la pantalla de pausa
     private Sound pauseSound; // Efecto de sonido para la pausa
+    private GameConfigurationSingleton gameConfig = GameConfigurationSingleton.getInstance();
 
     public PausaScreen(final GameLluviaMenu game, GameScreen juego) {
         this.game = game;
@@ -33,7 +34,7 @@ public class PausaScreen implements Screen {
 
         // Configuración de la cámara
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, gameConfig.width, gameConfig.height);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class PausaScreen implements Screen {
         batch.begin();
 
         // Dibujar el fondo
-        batch.draw(fondo, 0, 0, 800, 480);
+        batch.draw(fondo, 0, 0, gameConfig.width, gameConfig.height);
 
         // Dibujar textos
         font.draw(batch, "Juego en Pausa ", 100, 150);

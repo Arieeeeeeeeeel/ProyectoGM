@@ -15,13 +15,14 @@ public class MainMenuScreen implements Screen {
     private BitmapFont font;
     private OrthographicCamera camera;
     private Texture backgroundTexture; // Nueva textura para el fondo
+    private GameConfigurationSingleton gameConfig = GameConfigurationSingleton.getInstance();
 
     public MainMenuScreen(final GameLluviaMenu game) {
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, gameConfig.width, gameConfig.height);
 
         // Cargar la textura del fondo
         backgroundTexture = new Texture(Gdx.files.internal("background_menu.png")); // Asegúrate de que el archivo esté en los assets
@@ -36,7 +37,7 @@ public class MainMenuScreen implements Screen {
 
         batch.begin();
         // Dibujar el fondo
-        batch.draw(backgroundTexture, 0, 0, 800, 480);
+        batch.draw(backgroundTexture, 0, 0, gameConfig.width, gameConfig.height);
 
         // Dibujar textos
         font.getData().setScale(2, 2);

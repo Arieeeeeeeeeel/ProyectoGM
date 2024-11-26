@@ -1,31 +1,26 @@
-package gotas;
+package flechaStrategy;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import io.github.some_example_name.Item;
-import io.github.some_example_name.Tarro;
 
-public abstract class Gota implements Item {
+public class Flecha implements Item {
     protected Texture textura;
     protected float x;
     public float y;
-    protected float velocidad;
+    protected float velocidad = 5;
 
-    public Gota(Texture textura, float x, float y, float velocidad) {
+    public Flecha(Texture textura, float x, float y) {
         this.textura = textura;
         this.x = x;
         this.y = y;
-        this.velocidad = velocidad;
     }
 
-    // Método abstracto que será implementado por las subclases
-    public abstract void efecto(Tarro tarro);
-
-    // Método para actualizar la posición de la gota
-    public void caer() {
-        y -= velocidad;
+    // Método para actualizar la posición de la flecha
+    public void subir() {
+        y += velocidad;
     }
 
     // Método para obtener el área de la gota como un rectángulo
@@ -33,7 +28,7 @@ public abstract class Gota implements Item {
         return new Rectangle(x, y, textura.getWidth(), textura.getHeight());
     }
 
-    // Método para dibujar la gota
+    // Método para dibujar la flecha
     public void dibujar(SpriteBatch batch) {
         batch.draw(textura, x, y);
     }
