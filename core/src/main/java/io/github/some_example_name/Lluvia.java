@@ -9,11 +9,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
-import movimientosGotas.CaidaRecta;
-import movimientosGotas.MovimientoGota;
+import factorias.*;
 import flechaStrategy.Flecha;
 import gotas.Gota;
-import gotas.GotaBuena;
 import gotas.GotaMala;
 
 public class Lluvia {
@@ -24,56 +22,65 @@ public class Lluvia {
     private Sound dropSound;
     private Music rainMusic;
     private GameConfigurationSingleton gameConfig = GameConfigurationSingleton.getInstance();
-    private MovimientoGota movimiento;
+    private GotaFactory factory;
 
     public Lluvia(Texture gotaBuena, Texture gotaMala, Sound dropSound, Music rainMusic) {
         this.gotaBuena = gotaBuena;
         this.gotaMala = gotaMala;
         this.dropSound = dropSound;
         this.rainMusic = rainMusic;
-
-
-        this.movimiento = new CaidaRecta();
     }
 
     public void crear() {
         gotas = new Array<>();
-        crearGotaDeLluvia();
+        crearGotaDeLluvia(1);
 
 
         rainMusic.setLooping(true);
         rainMusic.play();
     }
 
-    private void crearGotaDeLluvia() {
+    private void crearGotaDeLluvia(int dificultad) {
         float x = MathUtils.random(0, gameConfig.width - 64);
         float y = gameConfig.height;
         float velocidad = 300 * Gdx.graphics.getDeltaTime();
 
+        setFactory(dificultad);
 
         Gota nuevaGota;
-        if (MathUtils.random(1, 10) < 5) { // 50% de probabilidad
-            nuevaGota = new GotaMala(gotaMala, x, y, velocidad, movimiento);
+        if (MathUtils.random(1, 10) < 5) {
+            nuevaGota = factory.crearBuena(gotaBuena, x, y, velocidad);
         } else {
-            nuevaGota = new GotaBuena(gotaBuena, x, y, velocidad, movimiento);
+            nuevaGota = factory.crearMala(gotaMala, x, y, velocidad);
         }
         gotas.add(nuevaGota);
         lastDropTime = TimeUtils.nanoTime();
     }
 
+    private void setFactory(int dificultad) {
+        if (dificultad == 1) {
+            factory = new DificultadFacil();
+        } else if (dificultad == 2) {
+            factory = new DificultadMedia();
+        } else if (dificultad == 3) {
+            factory = new DificultadDificil();
+        } else {
+            factory = new DificultadExtremo();
+        }
+    }
+
     public boolean actualizarMovimiento(Tarro tarro) {
         if (TimeUtils.nanoTime() - lastDropTime > 100000000) {
-            crearGotaDeLluvia();
+            crearGotaDeLluvia(tarro.dificultad());
         }
 
         for (int i = 0; i < gotas.size; i++) {
             Gota gota = gotas.get(i);
-            gota.caer();
+            int option = gota.cicloDeVida(tarro);
 
-            if (gota.y < 0) {
+            if (option == 0) { // La gota cae al suelo
                 gotas.removeIndex(i);
-            } else if (gota.getArea().overlaps(tarro.getArea())) {
-                gota.efecto(tarro);
+            } else if (option == 1){ // La gota choca con el tarro
                 dropSound.play();
                 gotas.removeIndex(i);
 

@@ -30,7 +30,7 @@ public class Flecha implements Item {
 
     // Método para dibujar la flecha
     public void dibujar(SpriteBatch batch) {
-        batch.draw(textura, x, y);
+        batch.draw(textura, x+25, y);
     }
 
     // Liberar recursos

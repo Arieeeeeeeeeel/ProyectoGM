@@ -11,7 +11,7 @@ public final class GameConfigurationSingleton {
     private GameConfigurationSingleton() {
         this.width = 800;
         this.height = 600;
-        this.fps = 30;
+        this.fps = 60;
         this.fullscreen = false;
         this.vSync = true;
     }

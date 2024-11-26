@@ -1,12 +1,12 @@
 package movimientosGotas;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
+import gotas.Gota;
 
 public class CaidaRecta extends MovimientoGota {
 
     @Override
-    public void actualizarX(int velX, Rectangle gota) {
+    public void actualizarX(Gota gota) {
 
     }
 }

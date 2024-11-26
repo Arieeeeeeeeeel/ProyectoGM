@@ -7,6 +7,7 @@ import movimientosGotas.MovimientoGota;
 public class GotaBuena extends Gota {
     public GotaBuena(Texture textura, float x, float y, float velocidad, MovimientoGota movimiento) {
         super(textura, x, y, velocidad, movimiento);
+        velocidadX = 0;
     }
 
     @Override

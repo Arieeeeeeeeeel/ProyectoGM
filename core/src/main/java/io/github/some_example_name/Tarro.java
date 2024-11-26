@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
 import flechaStrategy.DisparoStrategy;
-import flechaStrategy.DisparoFlecha;
 
 public class Tarro {
 	private Rectangle bucket;
@@ -21,9 +20,8 @@ public class Tarro {
 	private boolean herido = false;
 	private int tiempoHeridoMax = 50;
 	private int tiempoHerido;
-	private DisparoStrategy disparoStrategy;
 	private long lastDisparoTime = 0;
-	private static final long COOLDOWN = 300; // 0.3 segundos de cooldown
+	private static final long COOLDOWN = 600; // 0.3 segundos de cooldown
 	private GameConfigurationSingleton gameConfig = GameConfigurationSingleton.getInstance();
 
 
@@ -46,6 +44,14 @@ public class Tarro {
 
 	public void sumarPuntos(int pp) {
 		puntos += pp;
+	}
+
+	public int dificultad() {
+		if (puntos <= 100) {return 1;}
+		if (puntos <= 120) {return 2;}
+		if (puntos <= 150) {return 3;}
+		return 4;
+
 	}
 
 	public void crear() {
@@ -95,7 +101,7 @@ public class Tarro {
 			bucket.x = 0;
 		if (bucket.x > gameConfig.width - 64)
 			bucket.x = gameConfig.width - 64;
-		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 			disparar(disparoStrategy);
 		}
 	}

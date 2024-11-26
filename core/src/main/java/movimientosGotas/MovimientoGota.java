@@ -1,11 +1,11 @@
 package movimientosGotas;
 
-import com.badlogic.gdx.math.Rectangle;
+import gotas.Gota;
 
 public abstract class MovimientoGota {
-    public void actualizarMov(int velX, Rectangle gota) {
-        actualizarX(velX, gota);
+    public void actualizarMov(Gota gota) {
+        actualizarX(gota);
     }
 
-    public abstract void actualizarX(int velX, Rectangle gota);
+    public abstract void actualizarX(Gota gota);
 }
